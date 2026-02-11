@@ -34,14 +34,14 @@ App::~App()
     UnregisterClass(className, GetModuleHandle(nullptr));
 }
 
-int App::createWindow(int x, int y, int width, int height)
+int App::createWindow(int width, int height)
 {
     HWND hwnd = CreateWindowEx(
         0,
         className,
         L"Hello, World!",
         WS_OVERLAPPEDWINDOW,
-        x, y,
+        CW_USEDEFAULT, CW_USEDEFAULT,
         width, height,
         nullptr,
         nullptr,
@@ -52,6 +52,14 @@ int App::createWindow(int x, int y, int width, int height)
     {
         return -1;
     }
+
+    RECT windowRect;
+    SystemParametersInfo(SPI_GETWORKAREA, 0, &windowRect, 0);
+
+    constexpr int margin = 20;
+    int x = windowRect.right - width - margin;
+    int y = windowRect.top + 20;
+    SetWindowPos(hwnd, nullptr, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
     return 0;
 }

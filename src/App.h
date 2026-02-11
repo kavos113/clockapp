@@ -18,9 +18,8 @@ public:
     App();
     ~App();
 
+    // create top right
     int createWindow(
-        int x = CW_USEDEFAULT,
-        int y = CW_USEDEFAULT,
         int width = 800,
         int height = 600
     );
