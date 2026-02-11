@@ -58,7 +58,7 @@ int App::createWindow(int width, int height)
 
     constexpr int margin = 20;
     int x = windowRect.right - width - margin;
-    int y = windowRect.top + 20;
+    int y = windowRect.top;
     SetWindowPos(hwnd, nullptr, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
     return 0;
