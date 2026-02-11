@@ -6,6 +6,9 @@
 struct DrawInfo
 {
     std::wstring timeString;
+    std::wstring cpuUsage;
+    std::wstring memoryUsage;
+    std::wstring networkUsage;
 };
 
 

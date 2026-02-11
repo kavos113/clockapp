@@ -348,6 +348,9 @@ DrawInfo App::createDrawInfo()
     std::wstring timeString = std::format(L"{:%H:%M:%S}", now);
 
     return DrawInfo{
-        .timeString = timeString
+        .timeString = timeString,
+        .cpuUsage = L"CPU: 20%",
+        .memoryUsage = L"Memory: 4GB",
+        .networkUsage = L"Network: 10Mbps",
     };
 }
