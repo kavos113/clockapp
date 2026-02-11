@@ -3,7 +3,7 @@ project(clockapp)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(clockapp src/main.cpp
+add_executable(clockapp WIN32 src/main.cpp
         src/App.cpp
         src/App.h
         src/DWriteEngine.cpp
