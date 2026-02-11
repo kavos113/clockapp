@@ -47,7 +47,6 @@ private:
     Microsoft::WRL::ComPtr<ID2D1DeviceContext> m_d2dContext;
     Microsoft::WRL::ComPtr<IDXGISwapChain1> m_swapChain;
     Microsoft::WRL::ComPtr<ID2D1Bitmap1> m_bitmap;
-    Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> m_brush;
 
     std::unique_ptr<DWriteEngine> m_dwriteEngine;
 };

@@ -37,10 +37,10 @@ App::~App()
 int App::createWindow(int width, int height)
 {
     HWND hwnd = CreateWindowEx(
-        0,
+        WS_EX_LAYERED | WS_EX_TOOLWINDOW,
         className,
         L"Hello, World!",
-        WS_OVERLAPPEDWINDOW,
+        WS_POPUP,
         CW_USEDEFAULT, CW_USEDEFAULT,
         width, height,
         nullptr,
@@ -182,16 +182,6 @@ void App::initD2D()
 
     createSurfaceBitmap();
 
-    hr = m_d2dContext->CreateSolidColorBrush(
-        D2D1::ColorF(D2D1::ColorF::Red),
-        &m_brush
-    );
-    if (FAILED(hr))
-    {
-        MessageBox(nullptr, L"Failed to create D2D solid color brush", L"Error", MB_OK | MB_ICONERROR);
-        return;
-    }
-
     m_dwriteEngine = std::make_unique<DWriteEngine>(m_d2dContext, rc);
 }
 
@@ -201,6 +191,7 @@ void App::run()
     UpdateWindow(m_hwnd);
 
     SetTimer(m_hwnd, MAIN_TIMER, 1000, nullptr);
+    SetWindowPos(m_hwnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 
     MSG msg = {};
     while (GetMessage(&msg, nullptr, 0, 0))
@@ -219,6 +210,8 @@ LRESULT App::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         auto *pCreate = reinterpret_cast<CREATESTRUCT *>(lParam);
         app = static_cast<App*>(pCreate->lpCreateParams);
         SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(app));
+
+        SetLayeredWindowAttributes(hwnd, RGB(255, 255, 255), 0, LWA_COLORKEY);
 
         app->m_hwnd = hwnd;
     }
@@ -268,14 +261,13 @@ void App::onPaint()
     BeginPaint(m_hwnd, &ps);
 
     m_d2dContext->BeginDraw();
-    m_d2dContext->Clear(D2D1::ColorF(D2D1::ColorF::SkyBlue));
+    m_d2dContext->Clear(D2D1::ColorF(1, 1, 1));
 
     m_dwriteEngine->draw(createDrawInfo());
 
     if (FAILED(m_d2dContext->EndDraw()))
     {
         m_d2dContext.Reset();
-        m_brush.Reset();
     }
 
     m_swapChain->Present(1, 0);
