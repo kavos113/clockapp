@@ -34,21 +34,21 @@ std::wstring formatMemoryBytes(long long bytes)
 
 std::wstring formatNetworkBytesPerSec(long long bytesPerSec)
 {
-    constexpr long long KB = 1024;
-    constexpr long long MB = KB * 1024;
-    constexpr long long GB = MB * 1024;
+    constexpr long long Kb = 128;
+    constexpr long long Mb = Kb * 1024;
+    constexpr long long Gb = Mb * 1024;
 
-    if (bytesPerSec >= GB)
+    if (bytesPerSec >= Gb)
     {
-        return std::format(L"net: {:>5.1f}Gbps", static_cast<double>(bytesPerSec) / GB);
+        return std::format(L"net: {:>5.1f}Gbps", static_cast<double>(bytesPerSec) / Gb);
     }
-    else if (bytesPerSec >= MB)
+    else if (bytesPerSec >= Mb)
     {
-        return std::format(L"net: {:>5.1f}Mbps", static_cast<double>(bytesPerSec) / MB);
+        return std::format(L"net: {:>5.1f}Mbps", static_cast<double>(bytesPerSec) / Mb);
     }
     else
     {
-        return std::format(L"net: {:>5.1f}Kbps", static_cast<double>(bytesPerSec) / KB);
+        return std::format(L"net: {:>5.1f}Kbps", static_cast<double>(bytesPerSec) / Kb);
     }
 }
 
