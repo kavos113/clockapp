@@ -8,7 +8,9 @@ add_executable(clockapp src/main.cpp
         src/App.h
         src/DWriteEngine.cpp
         src/DWriteEngine.h
-        src/DrawInfo.h)
+        src/DrawInfo.h
+        src/ResourceMonitor.cpp
+        src/ResourceMonitor.h)
 
-target_link_libraries(clockapp PRIVATE d2d1 d3d11 dxgi dwrite)
+target_link_libraries(clockapp PRIVATE d2d1 d3d11 dxgi dwrite Pdh)
 target_compile_definitions(clockapp PRIVATE UNICODE WIN32_LEAN_AND_MEAN)

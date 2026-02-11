@@ -116,7 +116,7 @@ void DWriteEngine::draw(const DrawInfo& info) const
         m_blackBrush.Get()
     );
 
-    constexpr float pfWidth = 300.0f;
+    constexpr float pfWidth = 280.0f;
     float pfHeight = FONT_SIZE_OTHERS * 1.2f;
     float pfHeightBase = FONT_SIZE_TIMER * 1.3f;
     float pfLeft = static_cast<float>(m_rect.right - m_rect.left) - pfWidth;

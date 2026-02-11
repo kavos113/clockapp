@@ -21,6 +21,8 @@ App::App()
     };
 
     RegisterClassEx(&wc);
+
+    m_resourceMonitor = std::make_unique<ResourceMonitor>();
 }
 
 App::~App()
@@ -338,19 +340,14 @@ void App::createSurfaceBitmap()
 
 DrawInfo App::createDrawInfo()
 {
-    using namespace std::chrono;
+    DrawInfo info = m_resourceMonitor->collect();
 
+    using namespace std::chrono;
     auto now = zoned_time{
         current_zone(),
         floor<seconds>(system_clock::now())
     };
 
-    std::wstring timeString = std::format(L"{:%H:%M:%S}", now);
-
-    return DrawInfo{
-        .timeString = timeString,
-        .cpuUsage = L"CPU: 20%",
-        .memoryUsage = L"Memory: 4GB",
-        .networkUsage = L"Network: 10Mbps",
-    };
+    info.timeString = std::format(L"{:%H:%M:%S}", now);
+    return info;
 }

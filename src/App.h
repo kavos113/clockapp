@@ -11,6 +11,7 @@
 
 #include "DWriteEngine.h"
 #include "DrawInfo.h"
+#include "ResourceMonitor.h"
 
 class App
 {
@@ -49,6 +50,7 @@ private:
     Microsoft::WRL::ComPtr<ID2D1Bitmap1> m_bitmap;
 
     std::unique_ptr<DWriteEngine> m_dwriteEngine;
+    std::unique_ptr<ResourceMonitor> m_resourceMonitor;
 };
 
 
